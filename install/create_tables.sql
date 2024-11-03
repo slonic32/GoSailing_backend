@@ -4,9 +4,9 @@ USE mern_db;
 -- Create Users table
 CREATE TABLE Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(20) NOT NULL,
     phone VARCHAR(20),
     avatar VARCHAR(255),
     token VARCHAR(255),
@@ -16,11 +16,11 @@ CREATE TABLE Users (
 -- Create Vehicles table
 CREATE TABLE Vehicles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    model VARCHAR(255) NOT NULL,
+    model VARCHAR(50) NOT NULL,
     type ENUM('Boat', 'Trailer') NOT NULL,
     material ENUM('GRP', 'Wood', 'Aluminium', 'Steel') NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    location VARCHAR(255) NOT NULL,
+    location VARCHAR(50) NOT NULL,
     year INT NOT NULL,
     description VARCHAR(1020),
     photo VARCHAR(255),

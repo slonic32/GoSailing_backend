@@ -6,6 +6,13 @@ export const getAllVehicles = async (req, res, next) => {
   res.status(200).json(vehicles);
 };
 
+export const searchVehicles = async (req, res, next) => {
+  const userId = req.user ? req.user.id : null; // If user is authenticated, get userId
+  const query = req.query;
+  const vehicles = await services.searchVehicles(query, userId);
+  res.status(200).json(vehicles);
+};
+
 export const getAllMyVehicles = async (req, res, next) => {
   const vehicles = await services.getAllMyVehicles(req.user.id);
   res.status(200).json(vehicles);

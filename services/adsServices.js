@@ -13,6 +13,48 @@ export const getAllVehicles = async (userId = null) => {
   return vehicles;
 };
 
+export const searchVehicles = async (searchQuery, userId = null) => {
+  // Query to search
+
+  const { type, minPrice, maxPrice, material, location, year } = searchQuery;
+
+  let query = `
+    SELECT Vehicles.*, 
+    IF(LikedBy.user_id IS NOT NULL, true, false) AS isLiked 
+    FROM Vehicles 
+    LEFT JOIN LikedBy  ON Vehicles.id = LikedBy.vehicle_id AND LikedBy.user_id = ?
+    WHERE 1=1`;
+  const params = [];
+  params.push(userId);
+
+  if (type) {
+    query += " AND type = ?";
+    params.push(type);
+  }
+  if (minPrice) {
+    query += " AND price >= ?";
+    params.push(parseFloat(minPrice));
+  }
+  if (maxPrice) {
+    query += " AND price <= ?";
+    params.push(parseFloat(maxPrice));
+  }
+  if (material) {
+    query += " AND material = ?";
+    params.push(material);
+  }
+  if (location) {
+    query += " AND location = ?";
+    params.push(location);
+  }
+  if (year) {
+    query += " AND year = ?";
+    params.push(parseInt(year));
+  }
+  const [vehicles] = await db_pool.execute(query, params);
+  return vehicles;
+};
+
 export const getAllMyVehicles = async (userId) => {
   // Query to fetch all vehicles
   const query = `

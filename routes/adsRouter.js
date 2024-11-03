@@ -9,7 +9,9 @@ import { errorHandling } from "../helpers/errorHandlingWrapper.js";
 const adsRouter = express.Router();
 
 // Vehicles Routes
-adsRouter.get("/", adsAuthenticate, errorHandling(controller.getAllVehicles));
+//adsRouter.get("/", adsAuthenticate, errorHandling(controller.getAllVehicles));
+
+adsRouter.get("/", adsAuthenticate, errorHandling(controller.searchVehicles));
 
 adsRouter.get("/my", authenticate, errorHandling(controller.getAllMyVehicles));
 
