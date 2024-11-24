@@ -91,3 +91,24 @@ CREATE TABLE LikedBy (
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (vehicle_id) REFERENCES Vehicles(id)
 );
+
+-- Create RequestLogs table
+CREATE TABLE RequestLogs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ip_address VARCHAR(45) NOT NULL,
+    url_accessed VARCHAR(255) NOT NULL,
+    method ENUM('GET', 'POST', 'PUT', 'DELETE') NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    user_agent VARCHAR(255) NOT NULL
+);
+
+-- Create ErrorLogs table
+CREATE TABLE ErrorLogs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ip_address VARCHAR(45),
+    url_accessed VARCHAR(255),
+    method ENUM('GET', 'POST', 'PUT', 'DELETE'),
+    error_message TEXT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
