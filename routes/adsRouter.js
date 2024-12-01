@@ -15,12 +15,6 @@ adsRouter.get("/", adsAuthenticate, errorHandling(controller.searchVehicles));
 
 adsRouter.get("/my", authenticate, errorHandling(controller.getAllMyVehicles));
 
-adsRouter.get(
-  "/:id",
-  adsAuthenticate,
-  errorHandling(controller.getVehicleById)
-);
-
 // Boats Routes
 adsRouter.get("/boats", adsAuthenticate, errorHandling(controller.getAllBoats));
 
@@ -108,6 +102,14 @@ adsRouter.delete(
   "/liked/:id",
   authenticate,
   errorHandling(controller.deleteLike)
+);
+
+adsRouter.get("/autocomplete", errorHandling(controller.autoComplete));
+
+adsRouter.get(
+  "/:id",
+  adsAuthenticate,
+  errorHandling(controller.getVehicleById)
 );
 
 export default adsRouter;

@@ -605,3 +605,21 @@ export const createSmallboat = async (userId, boatData) => {
     connection.release(); // Release the connection back to the pool
   }
 };
+
+export const autoComplete = async (input, field) => {
+  // Query to autocomplete
+
+  if (!input || !field) {
+    throw HttpError(400, "Invalid field");
+  }
+
+  let query = "";
+  if (field === "location") {
+    query = `SELECT DISTINCT location FROM Vehicles WHERE location LIKE ? LIMIT 10`;
+  } else if (field === "year") {
+    query = `SELECT DISTINCT year FROM Vehicles WHERE year LIKE ? LIMIT 10`;
+  }
+
+  const [results] = await db_pool.execute(query, [`%${input}%`]);
+  return results;
+};

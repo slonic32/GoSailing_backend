@@ -99,3 +99,10 @@ export const getVehicleById = async (req, res, next) => {
   const trailer = await services.getVehicleById(userId, req.params.id);
   res.status(200).json(trailer);
 };
+
+export const autoComplete = async (req, res, next) => {
+  const { query, field } = req.query;
+  const input = query;
+  const results = await services.autoComplete(input, field);
+  res.status(200).json(results);
+};
