@@ -55,7 +55,6 @@ export const refreshTokens = async (req, res) => {
 export const geolocation = async (req, res) => {
   var { ip } = req;
   ip = ip.split(":").pop();
-  console.log("ip: ", ip);
 
   const { latitude, longitude, ip: returnedIp } = await geolocationService(ip);
   res.status(200).json({ latitude, longitude, returnedIp });
