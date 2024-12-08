@@ -1,4 +1,5 @@
 import {
+  geolocationService,
   loginDataService,
   logoutUserDataService,
   regenerateTokenDataService,
@@ -49,4 +50,11 @@ export const updateUser = async (req, res, next) => {
 export const refreshTokens = async (req, res) => {
   const { token, refreshtoken } = await regenerateTokenDataService(req.user);
   res.status(200).json({ token, refreshtoken });
+};
+
+export const geolocation = async (req, res) => {
+  const { ip } = req;
+
+  const { latitude, longitude, ip: returnedIp } = await geolocationService(ip);
+  res.status(200).json({ latitude, longitude, returnedIp });
 };
