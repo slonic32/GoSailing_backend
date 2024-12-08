@@ -22,6 +22,7 @@ userRouter
   )
   .get("/logout", authenticate, errorHandling(controllers.logout))
   .get("/current", authenticate, errorHandling(controllers.current))
+  .get("/geolocation", errorHandling(controllers.geolocation))
   .patch("/update", authenticate, errorHandling(controllers.updateUser))
   .patch(
     "/refresh",

@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import db_pool from "../db/db.js";
 import HttpError from "../helpers/HttpError.js";
 import { generateTokens } from "./jwtServices.js";
+import axios from "axios";
 
 export const registerDataService = async (email, name, phone, password) => {
   // Check if the email is already in use
@@ -87,4 +88,16 @@ export const regenerateTokenDataService = async (currentUser) => {
 export const safeUserCloneDataService = (user) => {
   const { id, token, refreshtoken, password, ...cloneUser } = user;
   return cloneUser;
+};
+
+export const geolocationService = async (ip) => {
+  // Geolocation API call
+
+  const response = await axios.get(`https://ipinfo.io/${ip}/geo`);
+  const { loc, ip: returnedIp } = response.data;
+  if (!loc || !returnedIp) {
+    throw HttpError(404, "IP is not found");
+  }
+  const [latitude, longitude] = loc.split(",");
+  return { latitude, longitude, ip: returnedIp };
 };
