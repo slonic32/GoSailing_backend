@@ -96,7 +96,7 @@ export const geolocationService = async (ip) => {
   const response = await axios.get(`https://ipinfo.io/${ip}/geo`);
   const { loc, ip: returnedIp } = response.data;
   if (!loc || !returnedIp) {
-    throw HttpError(404, "IP is not found");
+    throw HttpError(400, "IP is not found");
   }
   const [latitude, longitude] = loc.split(",");
   return { latitude, longitude, ip: returnedIp };
