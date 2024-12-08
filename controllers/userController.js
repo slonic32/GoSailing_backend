@@ -54,6 +54,11 @@ export const refreshTokens = async (req, res) => {
 
 export const geolocation = async (req, res) => {
   const { ip } = req;
+  console.log("ip: ", ip);
+
+  const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+  const ip2 = clientIp.split(",")[0].trim();
+  console.log("ip2: ", ip2);
 
   const { latitude, longitude, ip: returnedIp } = await geolocationService(ip);
   res.status(200).json({ latitude, longitude, returnedIp });
